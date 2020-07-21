@@ -35,17 +35,6 @@ bazel_common()
 bazel_deps()
 bazel_toolchain()
 
-# Load gRPC
-load("@graknlabs_dependencies//builder/grpc:deps.bzl", grpc_deps = "deps")
-grpc_deps()
-load("@com_github_grpc_grpc//bazel:grpc_deps.bzl",
-com_github_grpc_grpc_deps = "grpc_deps")
-com_github_grpc_grpc_deps()
-load("@stackb_rules_proto//java:deps.bzl", "java_grpc_compile")
-java_grpc_compile()
-load("@stackb_rules_proto//node:deps.bzl", "node_grpc_compile")
-node_grpc_compile()
-
 # Load Java
 load("@graknlabs_dependencies//builder/java:deps.bzl", java_deps = "deps")
 java_deps()
@@ -77,9 +66,18 @@ load("@graknlabs_dependencies_ci_pip//:requirements.bzl",
 graknlabs_dependencies_ci_pip_install = "pip_install")
 graknlabs_dependencies_ci_pip_install()
 
-# Load Docker
-load("@graknlabs_dependencies//distribution/docker:deps.bzl", docker_deps = "deps")
-docker_deps()
+# Load gRPC
+load("@graknlabs_dependencies//builder/grpc:deps.bzl", grpc_deps = "deps")
+grpc_deps()
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+protobuf_deps()
+load("@com_github_grpc_grpc//bazel:grpc_deps.bzl",
+com_github_grpc_grpc_deps = "grpc_deps")
+com_github_grpc_grpc_deps()
+load("@stackb_rules_proto//java:deps.bzl", "java_grpc_compile")
+java_grpc_compile()
+load("@stackb_rules_proto//node:deps.bzl", "node_grpc_compile")
+node_grpc_compile()
 
 # Load Checkstyle
 load("@graknlabs_dependencies//tool/checkstyle:deps.bzl", checkstyle_deps = "deps")

@@ -20,6 +20,13 @@ package(default_visibility = ["//visibility:public"])
 exports_files(["VERSION"])
 load("@graknlabs_bazel_distribution//github:rules.bzl", "deploy_github")
 
+proto_lang_toolchain(
+    name = "java_toolchain",
+    command_line = "--experimental_allow_proto3_optional --java_out=$(OUT)",
+    runtime = "@maven//:com_google_protobuf_protobuf_java",
+    visibility = ["//visibility:public"],
+)
+
 deploy_github(
     name = "deploy-github",
     deployment_properties = "//:deployment.properties",
